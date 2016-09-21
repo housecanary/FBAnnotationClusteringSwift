@@ -9,11 +9,11 @@
 import Foundation
 import MapKit
 
-public protocol FBClusteringManagerDelegate {
+open protocol FBClusteringManagerDelegate {
     func cellSizeFactorForCoordinator(_ coordinator: FBClusteringManager) -> CGFloat
 }
 
-public class FBClusteringManager: NSObject {
+open class FBClusteringManager: NSObject {
     
     public var delegate: FBClusteringManagerDelegate? = nil
     
@@ -23,21 +23,21 @@ public class FBClusteringManager: NSObject {
     
     public var maxZoomLevel = 19
     
-    public override init() {
+    open override init() {
         super.init()
     }
     
-    public init(annotations: [MKAnnotation]) {
+    open init(annotations: [MKAnnotation]) {
         super.init()
         addAnnotations(annotations)
     }
     
-    public func setAnnotations(_ annotations: [MKAnnotation]) {
+    open func setAnnotations(_ annotations: [MKAnnotation]) {
         tree = nil
         addAnnotations(annotations)
     }
     
-    public func addAnnotations(_ annotations: [MKAnnotation]) {
+    open func addAnnotations(_ annotations: [MKAnnotation]) {
         if tree == nil {
             tree = FBQuadTree()
         }
@@ -49,7 +49,7 @@ public class FBClusteringManager: NSObject {
         lock.unlock()
     }
     
-    public func clusteredAnnotationsWithinMapRect(_ rect: MKMapRect, withZoomScale zoomScale: Double) -> [MKAnnotation] {
+    open func clusteredAnnotationsWithinMapRect(_ rect: MKMapRect, withZoomScale zoomScale: Double) -> [MKAnnotation] {
         guard !zoomScale.isInfinite else { return [] }
         
         let zoomLevel   = FBClusteringManager.FBZoomScaleToZoomLevel(MKZoomScale(zoomScale))
@@ -111,7 +111,7 @@ public class FBClusteringManager: NSObject {
         return clusteredAnnotations
     }
     
-    public func allAnnotations() -> [MKAnnotation] {
+    open func allAnnotations() -> [MKAnnotation] {
         
         var annotations = [MKAnnotation]()
         
@@ -124,7 +124,7 @@ public class FBClusteringManager: NSObject {
         return annotations
     }
     
-    public func displayAnnotations(_ annotations: [MKAnnotation], onMapView mapView: MKMapView) {
+    open func displayAnnotations(_ annotations: [MKAnnotation], onMapView mapView: MKMapView) {
         
         DispatchQueue.main.async {
             
