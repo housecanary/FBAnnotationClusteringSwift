@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-open protocol FBClusteringManagerDelegate {
+public protocol FBClusteringManagerDelegate {
     func cellSizeFactorForCoordinator(_ coordinator: FBClusteringManager) -> CGFloat
 }
 
@@ -23,11 +23,11 @@ open class FBClusteringManager: NSObject {
     
     public var maxZoomLevel = 19
     
-    open override init() {
+    public override init() {
         super.init()
     }
     
-    open init(annotations: [MKAnnotation]) {
+    public init(annotations: [MKAnnotation]) {
         super.init()
         addAnnotations(annotations)
     }
